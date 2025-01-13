@@ -3,6 +3,9 @@ import router from '@adonisjs/core/services/router'
 import { db } from '#services/db'
 import { middleware } from '#start/kernel'
 
+const NewsController = () => import('#controllers/news_controller')
+const EventsController = () => import('#controllers/events_controller')
+
 router.on('/').renderInertia('home')
 
 router
@@ -35,3 +38,21 @@ router
     return response.redirect('/')
   })
   .use(middleware.auth())
+
+router
+  .group(() => {
+    router.post('/', [EventsController, 'create'])
+    router.put('/:id', [EventsController, 'update'])
+    router.delete('/:id', [EventsController, 'delete'])
+  })
+  .prefix('/events')
+  .middleware(middleware.auth())
+
+router
+  .group(() => {
+    router.post('/', [NewsController, 'create'])
+    router.put('/:id', [NewsController, 'update'])
+    router.delete('/:id', [NewsController, 'delete'])
+  })
+  .prefix('/news')
+  .middleware(middleware.auth())
