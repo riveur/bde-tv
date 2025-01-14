@@ -38,7 +38,7 @@ const updateSchema = z.object({
 })
 
 export function EventsForm() {
-  const { formRef, currentEvent, setOpenForm } = useEventsTabContext()
+  const { formRef, currentEvent, setOpenForm, setCurrentEvent } = useEventsTabContext()
 
   useEffect(() => {
     formRef.current?.scrollIntoView({ behavior: 'smooth' })
@@ -53,7 +53,10 @@ export function EventsForm() {
           variant="outline"
           className="rounded-full"
           size="icon"
-          onClick={() => setOpenForm(false)}
+          onClick={() => {
+            setCurrentEvent(null)
+            setOpenForm(false)
+          }}
         >
           <span className="sr-only">Fermer le formulaire</span>
           <XIcon />

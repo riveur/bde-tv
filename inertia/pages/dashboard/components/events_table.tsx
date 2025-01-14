@@ -37,6 +37,7 @@ import { DateTime } from '@/lib/luxon'
 import type { Event } from '@/types'
 import { EventsForm } from './events_form'
 import { useEventsTabContext } from './events_tab'
+import { cn } from '@/lib/utils'
 
 const columns: ColumnDef<Event>[] = [
   {
@@ -98,17 +99,17 @@ const columns: ColumnDef<Event>[] = [
   },
 ]
 
-interface DataTableProps<TData> {
-  data: TData[]
+interface DataTableProps {
+  data: Event[]
 }
 
-export function DataTable<TData>({ data }: DataTableProps<TData>) {
+export function DataTable({ data }: DataTableProps) {
   const [globalFilter, setGlobalFilter] = useState('')
-  const { setCurrentEvent, setOpenForm, openForm } = useEventsTabContext()
+  const { currentEvent, setCurrentEvent, setOpenForm, openForm } = useEventsTabContext()
 
   const table = useReactTable({
     data,
-    columns: columns as ColumnDef<TData, unknown>[],
+    columns,
     getCoreRowModel: getCoreRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
     state: {
@@ -159,7 +160,12 @@ export function DataTable<TData>({ data }: DataTableProps<TData>) {
             <TableBody>
               {table.getRowModel().rows?.length ? (
                 table.getRowModel().rows.map((row) => (
-                  <TableRow key={row.id} data-state={row.getIsSelected() && 'selected'}>
+                  <TableRow
+                    key={row.id}
+                    data-state={row.getIsSelected() && 'selected'}
+                    data-current={currentEvent?.id === row.original.id}
+                    className="data-[current=true]:bg-accent"
+                  >
                     {row.getVisibleCells().map((cell) => (
                       <TableCell key={cell.id}>
                         {flexRender(cell.column.columnDef.cell, cell.getContext())}

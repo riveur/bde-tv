@@ -101,17 +101,17 @@ const columns: ColumnDef<New>[] = [
   },
 ]
 
-interface DataTableProps<TData> {
-  data: TData[]
+interface DataTableProps {
+  data: New[]
 }
 
-export function DataTable<TData>({ data }: DataTableProps<TData>) {
+export function DataTable({ data }: DataTableProps) {
   const [globalFilter, setGlobalFilter] = useState('')
-  const { setCurrentNew, setOpenForm, openForm } = useNewsTabContext()
+  const { currentNew, setCurrentNew, setOpenForm, openForm } = useNewsTabContext()
 
   const table = useReactTable({
     data,
-    columns: columns as ColumnDef<TData, unknown>[],
+    columns,
     getCoreRowModel: getCoreRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
     state: {
@@ -162,7 +162,12 @@ export function DataTable<TData>({ data }: DataTableProps<TData>) {
             <TableBody>
               {table.getRowModel().rows?.length ? (
                 table.getRowModel().rows.map((row) => (
-                  <TableRow key={row.id} data-state={row.getIsSelected() && 'selected'}>
+                  <TableRow
+                    key={row.id}
+                    data-state={row.getIsSelected() && 'selected'}
+                    data-current={currentNew?.id === row.original.id}
+                    className="data-[current=true]:bg-accent"
+                  >
                     {row.getVisibleCells().map((cell) => (
                       <TableCell key={cell.id}>
                         {flexRender(cell.column.columnDef.cell, cell.getContext())}
