@@ -1,6 +1,7 @@
 import { Link } from '@inertiajs/react'
 import { GalleryVerticalEndIcon, LogOutIcon } from 'lucide-react'
 
+import { ThemeToggler } from '@/components/theme_toggler'
 import { Button } from '@/components/ui/button'
 import { Toaster } from '@/components/ui/sonner'
 import { cn } from '@/lib/utils'
@@ -17,12 +18,15 @@ export function DashboardLayout({ className, children, ...props }: DashboardLayo
           </div>
           Zeluck Inc.
         </Link>
-        <Button size="icon" variant="secondary" className="w-8 h-8" asChild>
-          <Link method="post" href="/logout">
-            <span className="sr-only">Se déconnecter</span>
-            <LogOutIcon />
-          </Link>
-        </Button>
+        <div className="flex items-center gap-2">
+          <ThemeToggler className="w-8 h-8" />
+          <Button size="icon" variant="ghost" className="w-8 h-8" asChild>
+            <Link method="post" href="/logout">
+              <span className="sr-only">Se déconnecter</span>
+              <LogOutIcon />
+            </Link>
+          </Button>
+        </div>
       </header>
       <main className={cn('container mx-auto max-w-4xl min-h-dvh py-4', className)} {...props}>
         {children}

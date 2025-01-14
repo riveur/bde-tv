@@ -37,7 +37,6 @@ import { DateTime } from '@/lib/luxon'
 import type { Event } from '@/types'
 import { EventsForm } from './events_form'
 import { useEventsTabContext } from './events_tab'
-import { cn } from '@/lib/utils'
 
 const columns: ColumnDef<Event>[] = [
   {
