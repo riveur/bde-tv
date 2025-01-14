@@ -2,6 +2,7 @@ import { Link } from '@inertiajs/react'
 import { GalleryVerticalEndIcon, LogOutIcon } from 'lucide-react'
 
 import { Button } from '@/components/ui/button'
+import { Toaster } from '@/components/ui/sonner'
 import { cn } from '@/lib/utils'
 
 interface DashboardLayoutProps extends React.ComponentProps<'main'> {}
@@ -26,6 +27,7 @@ export function DashboardLayout({ className, children, ...props }: DashboardLayo
       <main className={cn('container mx-auto max-w-4xl min-h-dvh py-4', className)} {...props}>
         {children}
       </main>
+      <Toaster />
     </>
   )
 }

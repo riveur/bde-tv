@@ -13,7 +13,7 @@ router
     const news = await db.news.all()
     const events = await db.events.all()
 
-    return inertia.render('dashboard', { news, events })
+    return inertia.render('dashboard/index', { news, events })
   })
   .as('dashboard')
   .middleware(middleware.auth())

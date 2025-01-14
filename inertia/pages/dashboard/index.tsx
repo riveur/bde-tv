@@ -7,13 +7,15 @@ import { Badge } from '@/components/ui/badge'
 import { ScrollArea, ScrollBar } from '@/components/ui/scroll_area'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { DashboardLayout } from '@/layouts/dashboard'
+import type { New } from '@/types'
+import { NewsTab } from './components/news_tab'
 
 type DashboardPageProps = {
-  news: InstanceType<typeof db.news>[]
+  news: New[]
   events: InstanceType<typeof db.events>[]
 }
 
-export default function DashboardPage(props: DashboardPageProps) {
+export default function DashboardIndexPage(props: DashboardPageProps) {
   const { news, events } = props
 
   return (
@@ -52,8 +54,8 @@ export default function DashboardPage(props: DashboardPageProps) {
               </TabsList>
               <ScrollBar orientation="horizontal" />
             </ScrollArea>
-            <TabsContent value="news">
-              <pre>{JSON.stringify(news, null, 2)}</pre>
+            <TabsContent value="news" className="flex flex-col gap-4">
+              <NewsTab news={news} />
             </TabsContent>
             <TabsContent value="events">
               <pre>{JSON.stringify(events, null, 2)}</pre>
