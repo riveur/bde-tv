@@ -11,7 +11,7 @@ interface DashboardLayoutProps extends React.ComponentProps<'main'> {}
 export function DashboardLayout({ className, children, ...props }: DashboardLayoutProps) {
   return (
     <>
-      <header className="container mx-auto max-w-4xl flex justify-between items-center py-4">
+      <header className="container mx-auto max-w-4xl flex justify-between items-center p-4">
         <Link href="/" className="flex items-center gap-2 self-center font-medium">
           <div className="flex h-6 w-6 items-center justify-center rounded-md bg-primary text-primary-foreground">
             <GalleryVerticalEndIcon className="size-4" />
@@ -28,7 +28,7 @@ export function DashboardLayout({ className, children, ...props }: DashboardLayo
           </Button>
         </div>
       </header>
-      <main className={cn('container mx-auto max-w-4xl min-h-dvh py-4', className)} {...props}>
+      <main className={cn('container mx-auto max-w-4xl min-h-dvh p-4', className)} {...props}>
         {children}
       </main>
       <Toaster />
