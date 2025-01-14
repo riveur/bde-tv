@@ -8,9 +8,9 @@ const createEventValidator = vine.compile(
   vine.object({
     title: vine.string(),
     startAt: vine
-      .date({ formats: ['yyyy-MM-dd'] })
+      .date({ formats: ['YYYY-MM-DD'] })
       .transform((value) => DateTime.fromJSDate(value)),
-    endAt: vine.date({ formats: ['yyyy-MM-dd'] }).transform((value) => DateTime.fromJSDate(value)),
+    endAt: vine.date({ formats: ['YYYY-MM-DD'] }).transform((value) => DateTime.fromJSDate(value)),
   })
 )
 
@@ -18,11 +18,11 @@ const updateEventValidator = vine.compile(
   vine.object({
     title: vine.string().optional(),
     startAt: vine
-      .date({ formats: ['yyyy-MM-dd'] })
+      .date({ formats: ['YYYY-MM-DD'] })
       .transform((value) => DateTime.fromJSDate(value))
       .optional(),
     endAt: vine
-      .date({ formats: ['yyyy-MM-dd'] })
+      .date({ formats: ['YYYY-MM-DD'] })
       .transform((value) => DateTime.fromJSDate(value))
       .optional(),
   })
