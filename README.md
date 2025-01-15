@@ -33,3 +33,12 @@ node ace migration:fresh --seed
 ```sh
 npm run dev
 ```
+
+## Commandes disponibles
+
+```sh
+node ace account:create                 # Pour créer un compte
+node ace account:delete <username>      # Pour supprimer un compte
+node ace account:list                   # Pour lister les comptes
+node ace account:passwd <username>      # Pour changer le mot de passe d'un compte
+```
