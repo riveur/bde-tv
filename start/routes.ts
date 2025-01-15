@@ -1,12 +1,27 @@
+import app from '@adonisjs/core/services/app'
 import router from '@adonisjs/core/services/router'
 
 import { db } from '#services/db'
+import { WeatherService } from '#services/weather_service'
+import env from '#start/env'
 import { middleware } from '#start/kernel'
 
 const NewsController = () => import('#controllers/news_controller')
 const EventsController = () => import('#controllers/events_controller')
 
-router.on('/').renderInertia('home')
+router.get('/', async ({ inertia }) => {
+  const news = await db.news.query().orderBy('created_at', 'desc').limit(3)
+  const events = await db.events
+    .query()
+    .withScopes((scopes) => scopes.incoming())
+    .orderBy('start_at', 'asc')
+    .limit(5)
+
+  const weatherService = await app.container.make(WeatherService)
+  const weather = await weatherService.getWeather(env.get('OPENWEATHER_CITY') || 'Paris')
+
+  return inertia.render('home/index', { news, events, weather })
+})
 
 router
   .get('/dashboard', async ({ inertia }) => {

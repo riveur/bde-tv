@@ -28,7 +28,7 @@ export function DashboardLayout({ className, children, ...props }: DashboardLayo
           </Button>
         </div>
       </header>
-      <main className={cn('container mx-auto max-w-4xl min-h-dvh p-4', className)} {...props}>
+      <main className={cn('container mx-auto max-w-4xl p-4', className)} {...props}>
         {children}
       </main>
       <Toaster />

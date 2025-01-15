@@ -17,12 +17,19 @@ cp .env.example .env
 node ace generate:key
 ```
 
-4. Migrer la base de données
+4. Ajoutez votre clé API OpenWeatherMap et la ville (optionnel) dans le fichier `.env`:
+
+```sh
+OPENWEATHER_API_KEY=YOUR_API_KEY
+OPENWEATHER_CITY=YOUR_CITY
+```
+
+5. Migrer la base de données
 ```sh
 node ace migration:fresh --seed
 ```
 
-5. Lancer le serveur
+1. Lancer le serveur
 ```sh
 npm run dev
 ```

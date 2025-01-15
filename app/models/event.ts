@@ -1,5 +1,5 @@
 import { DateTime } from 'luxon'
-import { BaseModel, column } from '@adonisjs/lucid/orm'
+import { BaseModel, column, scope } from '@adonisjs/lucid/orm'
 
 export default class Event extends BaseModel {
   @column({ isPrimary: true })
@@ -19,4 +19,8 @@ export default class Event extends BaseModel {
 
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   declare updatedAt: DateTime
+
+  static incoming = scope((query) => {
+    query.where('end_at', '>=', DateTime.utc().toSQLDate())
+  })
 }
