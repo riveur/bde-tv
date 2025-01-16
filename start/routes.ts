@@ -6,6 +6,7 @@ import { WeatherService } from '#services/weather_service'
 import env from '#start/env'
 import { middleware } from '#start/kernel'
 
+const SlidesController = () => import('#controllers/slides_controller')
 const NewsController = () => import('#controllers/news_controller')
 const EventsController = () => import('#controllers/events_controller')
 
@@ -27,8 +28,9 @@ router
   .get('/dashboard', async ({ inertia }) => {
     const news = await db.news.all()
     const events = await db.events.all()
+    const slides = await db.slides.query().orderBy('order', 'asc')
 
-    return inertia.render('dashboard/index', { news, events })
+    return inertia.render('dashboard/index', { news, events, slides })
   })
   .as('dashboard')
   .middleware(middleware.auth())
@@ -70,4 +72,14 @@ router
     router.delete('/:id', [NewsController, 'delete'])
   })
   .prefix('/news')
+  .middleware(middleware.auth())
+
+router
+  .group(() => {
+    router.post('/upload', [SlidesController, 'upload'])
+    router.post('/:id/toggle', [SlidesController, 'toggle'])
+    router.delete('/:id', [SlidesController, 'destroy'])
+    router.post('/order', [SlidesController, 'order'])
+  })
+  .prefix('/slides')
   .middleware(middleware.auth())

@@ -27,4 +27,11 @@ export default await Env.create(new URL('../', import.meta.url), {
 
   OPENWEATHER_API_KEY: Env.schema.string.optional(),
   OPENWEATHER_CITY: Env.schema.string.optional(),
+
+  /*
+  |----------------------------------------------------------
+  | Variables for configuring the drive package
+  |----------------------------------------------------------
+  */
+  DRIVE_DISK: Env.schema.enum(['fs'] as const),
 })

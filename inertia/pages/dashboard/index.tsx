@@ -1,22 +1,24 @@
 import { Head } from '@inertiajs/react'
-import { CalendarIcon, NewspaperIcon } from 'lucide-react'
+import { CalendarIcon, NewspaperIcon, WallpaperIcon } from 'lucide-react'
 
 import { Page, PageTitle } from '@/components/page'
 import { Badge } from '@/components/ui/badge'
 import { ScrollArea, ScrollBar } from '@/components/ui/scroll_area'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { DashboardLayout } from '@/layouts/dashboard'
-import type { Event, New } from '@/types'
-import { NewsTab } from './components/news_tab'
+import type { Event, New, Slide } from '@/types'
 import { EventsTab } from './components/events_tab'
+import { NewsTab } from './components/news_tab'
+import { SlidesTab } from './components/slides_tab'
 
 type DashboardPageProps = {
   news: New[]
   events: Event[]
+  slides: Slide[]
 }
 
 export default function DashboardIndexPage(props: DashboardPageProps) {
-  const { news, events } = props
+  const { news, events, slides } = props
 
   return (
     <>
@@ -51,6 +53,15 @@ export default function DashboardIndexPage(props: DashboardPageProps) {
                   />
                   Agenda
                 </TabsTrigger>
+                <TabsTrigger value="slides" className="group">
+                  <WallpaperIcon
+                    className="-ms-0.5 me-1.5 opacity-60"
+                    size={16}
+                    strokeWidth={2}
+                    aria-hidden="true"
+                  />
+                  Slides
+                </TabsTrigger>
               </TabsList>
               <ScrollBar orientation="horizontal" />
             </ScrollArea>
@@ -63,6 +74,9 @@ export default function DashboardIndexPage(props: DashboardPageProps) {
               <div className="flex flex-col gap-4">
                 <EventsTab events={events} />
               </div>
+            </TabsContent>
+            <TabsContent value="slides">
+              <SlidesTab slides={slides} />
             </TabsContent>
           </Tabs>
         </Page>

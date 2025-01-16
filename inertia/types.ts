@@ -15,3 +15,11 @@ export type Event = {
   createdAt: string
   updatedAt: string
 }
+
+export type Slide = {
+  id: number
+  order: number | null
+  imageUrl: string
+  createdAt: string
+  updatedAt: string
+}
