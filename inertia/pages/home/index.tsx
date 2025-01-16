@@ -7,6 +7,8 @@ import { EventsTimeline } from './components/events_timeline'
 import { HomeHeader } from './components/home_header'
 import { NewCard } from './components/new_card'
 import { WeatherCard } from './components/weather_card'
+import { cn } from '@/lib/utils'
+import { NewspaperIcon } from 'lucide-react'
 
 type HomePageProps = {
   news: New[]
@@ -31,10 +33,19 @@ export default function HomePage(props: HomePageProps) {
               <CardTitle>Dernières actualités</CardTitle>
             </CardHeader>
             <div className="relative overflow-y-auto flex-grow min-h-96">
-              <CardContent className="absolute inset-0 p-2 pt-0 flex flex-col gap-2">
-                {news.map((item) => (
-                  <NewCard key={item.id} new={item} />
-                ))}
+              <CardContent
+                className={cn(
+                  'absolute inset-0 p-2 pt-0 flex flex-col gap-2',
+                  news.length === 0 && 'items-center justify-center'
+                )}
+              >
+                {news.length === 0 && (
+                  <>
+                    <NewspaperIcon className="size-24" />
+                    <p>Aucune actualité pour le moment</p>
+                  </>
+                )}
+                {news.length !== 0 && news.map((item) => <NewCard key={item.id} new={item} />)}
               </CardContent>
             </div>
           </Card>
