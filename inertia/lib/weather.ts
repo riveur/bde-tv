@@ -10,34 +10,53 @@ import {
   ThunderstromIcon,
 } from '@/components/icons'
 
-export function translateCondition(condition: string) {
-  const translations = {
-    'clear sky': 'ciel dégagé',
-    'few clouds': 'peu nuageux',
-    'scattered clouds': 'nuages épars',
-    'broken clouds': 'nuages épars',
-    'shower rain': 'averses',
-    'rain': 'pluvieux',
-    'thunderstorm': 'orageux',
-    'snow': 'enneigé',
-    'mist': 'brumeux',
-  } as Record<string, string>
+const weatherConditions = ['Thunderstrom', 'Drizzle', 'Rain', 'Snow', 'Clear', 'Clouds'] as const
 
-  return translations[condition] || condition
+const atmosphereConditions = [
+  'Mist',
+  'Smoke',
+  'Haze',
+  'Dust',
+  'Fog',
+  'Sand',
+  'Dust',
+  'Ash',
+  'Squall',
+  'Tornado',
+] as const
+
+type WeatherCondition = (typeof weatherConditions)[number]
+type AtmosphereCondition = (typeof atmosphereConditions)[number]
+
+export function translateCondition(condition: string) {
+  const translations: Record<WeatherCondition, string> = {
+    Thunderstrom: 'Orageux',
+    Drizzle: 'Bruine',
+    Rain: 'Pluvieux',
+    Snow: 'Enneigé',
+    Clear: 'Dégagé',
+    Clouds: 'Nuageux',
+  }
+
+  if (atmosphereConditions.includes(condition as AtmosphereCondition)) {
+    return 'Brumeux'
+  }
+
+  return translations[condition as WeatherCondition] || condition
 }
 
-export const icons = {
-  'clear sky': SunIcon,
-  'few clouds': FewCloudsIcon,
-  'scattered clouds': BrokenCloudsIcon,
-  'broken clouds': BrokenCloudsIcon,
-  'shower rain': ShowerRainIcon,
-  'rain': RainIcon,
-  'thunderstorm': ThunderstromIcon,
-  'snow': SnowIcon,
-  'mist': MistIcon,
-} as Record<string, React.ComponentType<IconProps>>
+export const icons: Record<WeatherCondition, React.ComponentType<IconProps>> = {
+  Thunderstrom: ThunderstromIcon,
+  Drizzle: ShowerRainIcon,
+  Rain: RainIcon,
+  Snow: SnowIcon,
+  Clear: SunIcon,
+  Clouds: FewCloudsIcon,
+}
 
 export function getWeatherIcon(condition: string) {
-  return icons[condition] || SunIcon
+  if (atmosphereConditions.includes(condition as AtmosphereCondition)) {
+    return MistIcon
+  }
+  return icons[condition as WeatherCondition] || SunIcon
 }

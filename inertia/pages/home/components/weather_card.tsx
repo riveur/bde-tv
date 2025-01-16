@@ -8,7 +8,7 @@ interface WeatherCardProps {
 }
 
 export function WeatherCard({ weather }: WeatherCardProps) {
-  const Icon = getWeatherIcon(weather?.weather[0].description || '')
+  const Icon = getWeatherIcon(weather?.weather[0].main || '')
   return (
     <div className="flex flex-col gap-2 h-full">
       {weather === null && (
@@ -23,7 +23,7 @@ export function WeatherCard({ weather }: WeatherCardProps) {
             <p className="text-5xl font-bold">{Math.round(weather.main.temp)}°C</p>
             <div className="flex flex-col items-center gap-2">
               <Icon className="h-32 w-auto" />
-              <p className="capitalize">{translateCondition(weather.weather[0].description)}</p>
+              <p className="capitalize">{translateCondition(weather.weather[0].main)}</p>
             </div>
           </div>
           <div className="grid grid-cols-2 gap-2">
@@ -53,7 +53,7 @@ export function WeatherCard({ weather }: WeatherCardProps) {
               <div>
                 <p className="text-sm">Conditions</p>
                 <p className="font-semibold capitalize">
-                  {translateCondition(weather.weather[0].description)}
+                  {translateCondition(weather.weather[0].main)}
                 </p>
               </div>
             </div>
