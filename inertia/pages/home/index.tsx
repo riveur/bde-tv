@@ -1,14 +1,14 @@
 import { Head, usePoll } from '@inertiajs/react'
+import { NewspaperIcon } from 'lucide-react'
 
 import type { WeatherData } from '#services/weather_service'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { cn } from '@/lib/utils'
 import type { Event, New } from '@/types'
 import { EventsTimeline } from './components/events_timeline'
 import { HomeHeader } from './components/home_header'
 import { NewCard } from './components/new_card'
 import { WeatherCard } from './components/weather_card'
-import { cn } from '@/lib/utils'
-import { NewspaperIcon } from 'lucide-react'
 
 type HomePageProps = {
   news: New[]

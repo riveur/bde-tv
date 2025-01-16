@@ -96,6 +96,7 @@ function CreateForm() {
             resolve(undefined)
           },
           onError: reject,
+          only: ['events'],
         }
       )
     })
@@ -235,6 +236,7 @@ function UpdateForm({ data }: { data: Event }) {
             resolve(undefined)
           },
           onError: reject,
+          only: ['events'],
         }
       )
     })

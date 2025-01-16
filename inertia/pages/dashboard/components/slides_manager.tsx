@@ -55,7 +55,7 @@ export function SlidesManager({ slides }: SlidesManagerProps) {
           router.post(
             '/slides/order',
             { data: updatedSlides.map(({ id, order }) => ({ id, order })) },
-            { onSuccess: resolve, onError: reject }
+            { onSuccess: resolve, onError: reject, only: ['slides'] }
           )
         })
         toast.success("L'ordre des slides a été mis à jour")
@@ -76,6 +76,7 @@ export function SlidesManager({ slides }: SlidesManagerProps) {
           {
             onSuccess: resolve,
             onError: reject,
+            only: ['slides'],
           }
         )
       }),
@@ -93,6 +94,7 @@ export function SlidesManager({ slides }: SlidesManagerProps) {
         router.delete(`/slides/${slideId}`, {
           onSuccess: resolve,
           onError: reject,
+          only: ['slides'],
         })
       }),
       {

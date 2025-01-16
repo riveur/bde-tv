@@ -84,6 +84,7 @@ const columns: ColumnDef<Event>[] = [
                 onSuccess() {
                   toast.success('Evènement supprimé avec succès !')
                 },
+                only: ['events'],
               })
             }}
           >

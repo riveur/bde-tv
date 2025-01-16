@@ -92,6 +92,7 @@ function CreateForm() {
           resolve(undefined)
         },
         onError: reject,
+        only: ['news'],
       })
     })
   })
@@ -186,6 +187,7 @@ function UpdateForm({ data }: { data: New }) {
           resolve(undefined)
         },
         onError: reject,
+        only: ['news'],
       })
     })
   })

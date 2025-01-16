@@ -26,9 +26,9 @@ router.get('/', async ({ inertia }) => {
 
 router
   .get('/dashboard', async ({ inertia }) => {
-    const news = await db.news.all()
-    const events = await db.events.all()
-    const slides = await db.slides.query().orderBy('order', 'asc')
+    const news = () => db.news.all()
+    const events = () => db.events.all()
+    const slides = () => db.slides.query().orderBy('order', 'asc')
 
     return inertia.render('dashboard/index', { news, events, slides })
   })
