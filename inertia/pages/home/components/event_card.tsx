@@ -12,18 +12,14 @@ interface EventCardProps extends React.ComponentProps<typeof Card> {
 }
 
 export function EventCard({ event, className, ...props }: EventCardProps) {
-  const isToday = DateTime.fromISO(event.startAt).hasSame(DateTime.now(), 'day')
   return (
     <Card className={cn('transition-all hover:shadow-lg h-full', className)} {...props}>
       <CardContent className="p-2 flex flex-col justify-between h-full">
         <div className="flex items-start justify-between">
           <CardTitle className="text-sm font-normal leading-tight">{event.title}</CardTitle>
-          <Badge
-            variant="secondary"
-            className={cn('ml-2 text-xs text-nowrap', isToday && 'animate-pulse')}
-          >
+          <Badge variant="secondary" className="ml-2 text-xs text-nowrap">
             <ClockIcon className="w-3 h-3 mr-1" />
-            {isToday ? 'NOW' : getDuration(event.startAt, event.endAt)}
+            {getDuration(event.startAt, event.endAt)}
           </Badge>
         </div>
         <div className="flex items-center text-xs text-muted-foreground">
