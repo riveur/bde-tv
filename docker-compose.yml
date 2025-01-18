@@ -1,6 +1,6 @@
 services:
   website:
-    image: .
+    build: .
     container_name: website
     ports:
       - '3000:3000'
