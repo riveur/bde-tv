@@ -139,7 +139,7 @@ export function DataTable({ data }: DataTableProps) {
         </Button>
       </div>
       {openForm && <EventsForm />}
-      <Card>
+      <Card className="overflow-hidden">
         <CardContent className="p-0">
           <Table className="text-nowrap">
             <TableHeader>

@@ -55,7 +55,7 @@ export function SlidesManager({ slides }: SlidesManagerProps) {
           router.post(
             '/slides/order',
             { data: updatedSlides.map(({ id, order }) => ({ id, order })) },
-            { onSuccess: resolve, onError: reject, only: ['slides'] }
+            { onSuccess: resolve, onError: reject, only: ['slides'], preserveScroll: true }
           )
         })
         toast.success("L'ordre des slides a été mis à jour")

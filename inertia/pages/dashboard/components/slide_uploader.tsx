@@ -110,7 +110,7 @@ export function SlideUploader() {
     <div className="group" data-drag={isDragActive}>
       <label
         {...getRootProps()}
-        className="relative flex flex-col items-center justify-center h-32 border-2 border-dashed group-data-[drag=true]:border-solid rounded-lg cursor-pointer hover:bg-muted/80"
+        className="relative flex flex-col items-center justify-center h-32 border-2 border-dashed group-data-[drag=true]:border-solid rounded-lg cursor-pointer hover:bg-muted/80 hover:border-transparent"
       >
         {filesToUpload.length === 0 ? (
           <UploadCloud className="h-8 w-8 text-gray-300" />

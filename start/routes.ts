@@ -17,11 +17,13 @@ router.get('/', async ({ inertia }) => {
     .withScopes((scopes) => scopes.incoming())
     .orderBy('start_at', 'asc')
     .limit(5)
+  const slides = await db.slides.query().whereNotNull('order').orderBy('order', 'asc')
 
   const weatherService = await app.container.make(WeatherService)
   const weather = await weatherService.getWeather(env.get('OPENWEATHER_CITY') || 'Paris')
+  const carouselDelay = env.get('CAROUSEL_DELAY')
 
-  return inertia.render('home/index', { news, events, weather })
+  return inertia.render('home/index', { news, events, slides, weather, carouselDelay })
 })
 
 router
