@@ -29,7 +29,7 @@ export default function HomePage(props: HomePageProps) {
   return (
     <>
       <Head title="Accueil" />
-      <Carousel plugins={[Autoplay({ delay: carouselDelay })]}>
+      <Carousel opts={{ loop: true }} plugins={[Autoplay({ delay: carouselDelay })]}>
         <CarouselContent>
           <CarouselItem>
             <section className="min-h-dvh w-full flex flex-col gap-8 p-8">
