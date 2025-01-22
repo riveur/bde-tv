@@ -13,7 +13,7 @@ export default function LoginPage() {
             <div className="flex h-6 w-6 items-center justify-center rounded-md bg-primary text-primary-foreground">
               <GalleryVerticalEndIcon className="size-4" />
             </div>
-            Zeluck Inc.
+            BDE Lycée Saint Joseph
           </Link>
           <LoginForm />
         </div>

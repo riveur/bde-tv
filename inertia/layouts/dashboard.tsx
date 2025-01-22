@@ -16,7 +16,7 @@ export function DashboardLayout({ className, children, ...props }: DashboardLayo
           <div className="flex h-6 w-6 items-center justify-center rounded-md bg-primary text-primary-foreground">
             <GalleryVerticalEndIcon className="size-4" />
           </div>
-          Zeluck Inc.
+          BDE Lycée Saint Joseph
         </Link>
         <div className="flex items-center gap-2">
           <ThemeToggler className="w-8 h-8" />
