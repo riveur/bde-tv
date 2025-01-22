@@ -6,14 +6,13 @@ import { createInertiaApp } from '@inertiajs/react'
 import { createRoot } from 'react-dom/client'
 
 import { Providers } from '@/components/providers'
+import { APP_NAME } from '@/lib/constants'
 import '../css/app.css'
-
-const appName = import.meta.env.VITE_APP_NAME || 'BDE - TV'
 
 createInertiaApp({
   progress: { color: '#5468FF' },
 
-  title: (title) => `${title} - ${appName}`,
+  title: (title) => `${title} - ${APP_NAME}`,
 
   resolve: (name) => {
     return resolvePageComponent(`../pages/${name}.tsx`, import.meta.glob('../pages/**/*.tsx'))

@@ -1,9 +1,10 @@
 import { Link } from '@inertiajs/react'
-import { GalleryVerticalEndIcon, LogOutIcon } from 'lucide-react'
+import { LogOutIcon, WallpaperIcon } from 'lucide-react'
 
 import { ThemeToggler } from '@/components/theme_toggler'
 import { Button } from '@/components/ui/button'
 import { Toaster } from '@/components/ui/sonner'
+import { APP_NAME } from '@/lib/constants'
 import { cn } from '@/lib/utils'
 
 interface DashboardLayoutProps extends React.ComponentProps<'main'> {}
@@ -13,10 +14,10 @@ export function DashboardLayout({ className, children, ...props }: DashboardLayo
     <>
       <header className="container mx-auto max-w-4xl flex justify-between items-center p-4">
         <Link href="/" className="flex items-center gap-2 self-center font-medium">
-          <div className="flex h-6 w-6 items-center justify-center rounded-md bg-primary text-primary-foreground">
-            <GalleryVerticalEndIcon className="size-4" />
+          <div className="flex h-6 w-6 items-center justify-center rounded-md bg-fuchsia-500 text-primary-foreground">
+            <WallpaperIcon className="size-4" />
           </div>
-          Zeluck Inc.
+          {APP_NAME}
         </Link>
         <div className="flex items-center gap-2">
           <ThemeToggler className="w-8 h-8" />
