@@ -1,6 +1,6 @@
-import { Head } from '@inertiajs/react'
-import { CalendarIcon, NewspaperIcon, WallpaperIcon } from 'lucide-react'
+import { CalendarIcon, NewspaperIcon, SettingsIcon, WallpaperIcon } from 'lucide-react'
 
+import { Head } from '@/components/head'
 import { Page, PageTitle } from '@/components/page'
 import { Badge } from '@/components/ui/badge'
 import { ScrollArea, ScrollBar } from '@/components/ui/scroll_area'
@@ -9,6 +9,7 @@ import { DashboardLayout } from '@/layouts/dashboard'
 import type { Event, New, Slide } from '@/types'
 import { EventsTab } from './components/events_tab'
 import { NewsTab } from './components/news_tab'
+import { SettingsTab } from './components/setttings_tab'
 import { SlidesTab } from './components/slides_tab'
 
 type DashboardPageProps = {
@@ -62,6 +63,15 @@ export default function DashboardIndexPage(props: DashboardPageProps) {
                   />
                   Slides
                 </TabsTrigger>
+                <TabsTrigger value="settings" className="group">
+                  <SettingsIcon
+                    className="-ms-0.5 me-1.5 opacity-60"
+                    size={16}
+                    strokeWidth={2}
+                    aria-hidden="true"
+                  />
+                  Paramètres
+                </TabsTrigger>
               </TabsList>
               <ScrollBar orientation="horizontal" />
             </ScrollArea>
@@ -77,6 +87,9 @@ export default function DashboardIndexPage(props: DashboardPageProps) {
             </TabsContent>
             <TabsContent value="slides">
               <SlidesTab slides={slides} />
+            </TabsContent>
+            <TabsContent value="settings">
+              <SettingsTab />
             </TabsContent>
           </Tabs>
         </Page>

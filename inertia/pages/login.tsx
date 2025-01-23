@@ -1,10 +1,13 @@
-import { Head, Link } from '@inertiajs/react'
+import { Link } from '@inertiajs/react'
 import { WallpaperIcon } from 'lucide-react'
 
+import { Head } from '@/components/head'
 import { LoginForm } from '@/components/login_form'
-import { APP_NAME } from '@/lib/constants'
+import { useAppSettings } from '@/hooks/use_app_settings'
 
 export default function LoginPage() {
+  const settings = useAppSettings()
+
   return (
     <>
       <Head title="Connexion" />
@@ -14,7 +17,7 @@ export default function LoginPage() {
             <div className="flex h-6 w-6 items-center justify-center rounded-md bg-fuchsia-500 text-primary-foreground">
               <WallpaperIcon className="size-4" />
             </div>
-            {APP_NAME}
+            {settings.appName}
           </Link>
           <LoginForm />
         </div>

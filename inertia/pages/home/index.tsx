@@ -1,10 +1,12 @@
-import { Head, usePoll } from '@inertiajs/react'
+import { usePoll } from '@inertiajs/react'
 import Autoplay from 'embla-carousel-autoplay'
 import { NewspaperIcon } from 'lucide-react'
 
 import type { WeatherData } from '#services/weather_service'
+import { Head } from '@/components/head'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Carousel, CarouselContent, CarouselItem } from '@/components/ui/carousel'
+import { useAppSettings } from '@/hooks/use_app_settings'
 import { cn } from '@/lib/utils'
 import type { Event, New, Slide } from '@/types'
 import { EventsTimeline } from './components/events_timeline'
@@ -18,20 +20,23 @@ type HomePageProps = {
   events: Event[]
   slides: Slide[]
   weather: WeatherData | null
-  carouselDelay: number
 }
 
 export default function HomePage(props: HomePageProps) {
-  const { news, events, slides, weather, carouselDelay } = props
+  const { news, events, slides, weather } = props
 
-  // Refresh data every 30 minutes
-  usePoll(30 * 60 * 1000)
+  const settings = useAppSettings()
+
+  usePoll(settings.refreshInterval * 60 * 1000)
   useLiveReload()
 
   return (
     <>
       <Head title="Accueil" />
-      <Carousel opts={{ loop: true }} plugins={[Autoplay({ delay: carouselDelay })]}>
+      <Carousel
+        opts={{ loop: true }}
+        plugins={[Autoplay({ delay: settings.carouselInterval * 1000 })]}
+      >
         <CarouselContent>
           <CarouselItem>
             <section className="min-h-dvh w-full flex flex-col gap-8 p-8">

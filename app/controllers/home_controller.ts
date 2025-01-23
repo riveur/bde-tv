@@ -1,13 +1,16 @@
 import { inject } from '@adonisjs/core'
 import type { HttpContext } from '@adonisjs/core/http'
 
+import { SettingRepository } from '#repositories/setting_repository'
 import { db } from '#services/db'
 import { WeatherService } from '#services/weather_service'
-import env from '#start/env'
 
 @inject()
 export default class HomeController {
-  constructor(private weatherService: WeatherService) {}
+  constructor(
+    private weatherService: WeatherService,
+    private settingRepository: SettingRepository
+  ) {}
 
   async handle({ inertia }: HttpContext) {
     const news = () => db.news.query().orderBy('created_at', 'desc').limit(3)
@@ -19,9 +22,9 @@ export default class HomeController {
         .limit(5)
     const slides = () => db.slides.query().whereNotNull('order').orderBy('order', 'asc')
 
-    const weather = await this.weatherService.getWeather(env.get('OPENWEATHER_CITY') || 'Paris')
-    const carouselDelay = env.get('CAROUSEL_DELAY')
+    const weatherCity = await this.settingRepository.getSetting('weatherCity')
+    const weather = inertia.always(() => this.weatherService.getWeather(weatherCity))
 
-    return inertia.render('home/index', { news, events, slides, weather, carouselDelay })
+    return inertia.render('home/index', { news, events, slides, weather })
   }
 }

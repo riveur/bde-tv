@@ -1,8 +1,10 @@
+import { inject } from '@adonisjs/core'
 import vine from '@vinejs/vine'
 import type { Infer } from '@vinejs/vine/types'
 import ky from 'ky'
 
 import cache from '#cache/cache'
+import { SettingRepository } from '#repositories/setting_repository'
 import env from '#start/env'
 
 const API_KEY = env.get('OPENWEATHER_API_KEY')
@@ -30,13 +32,18 @@ const weatherSchema = vine.compile(
 
 export type WeatherData = Infer<typeof weatherSchema>
 
+@inject()
 export class WeatherService {
+  constructor(private settingRepository: SettingRepository) {}
+
   async getWeather(city: string) {
     if (!API_KEY) {
       return null
     }
 
     try {
+      const weatherTtl = await this.settingRepository.getSetting('weatherTtl')
+
       return cache.getOrSet({
         key: `weather:${city}`,
         factory: async () => {
@@ -50,7 +57,7 @@ export class WeatherService {
           }
           return result
         },
-        ttl: '30min',
+        ttl: weatherTtl,
       })
     } catch (error: unknown) {
       return null

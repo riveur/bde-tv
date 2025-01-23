@@ -4,12 +4,13 @@ import { LogOutIcon, WallpaperIcon } from 'lucide-react'
 import { ThemeToggler } from '@/components/theme_toggler'
 import { Button } from '@/components/ui/button'
 import { Toaster } from '@/components/ui/sonner'
-import { APP_NAME } from '@/lib/constants'
+import { useAppSettings } from '@/hooks/use_app_settings'
 import { cn } from '@/lib/utils'
 
 interface DashboardLayoutProps extends React.ComponentProps<'main'> {}
 
 export function DashboardLayout({ className, children, ...props }: DashboardLayoutProps) {
+  const settings = useAppSettings()
   return (
     <>
       <header className="container mx-auto max-w-4xl flex justify-between items-center p-4">
@@ -17,7 +18,7 @@ export function DashboardLayout({ className, children, ...props }: DashboardLayo
           <div className="flex h-6 w-6 items-center justify-center rounded-md bg-fuchsia-500 text-primary-foreground">
             <WallpaperIcon className="size-4" />
           </div>
-          {APP_NAME}
+          {settings.appName}
         </Link>
         <div className="flex items-center gap-2">
           <ThemeToggler className="w-8 h-8" />

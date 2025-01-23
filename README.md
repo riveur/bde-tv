@@ -25,17 +25,10 @@ cp .env.example .env
 node ace generate:key
 ```
 
-4. Ajoutez votre clé API OpenWeatherMap et la ville (optionnel) dans le fichier `.env`:
+4. Ajoutez votre clé API OpenWeatherMap (optionnel) dans le fichier `.env`:
 
 ```sh
 OPENWEATHER_API_KEY=YOUR_API_KEY
-OPENWEATHER_CITY=YOUR_CITY
-```
-
-5. Ajouter le délai entre chaque slide de la diaporama dans le fichier `.env`:
-
-```sh
-CAROUSEL_DELAY=5000
 ```
 
 5. Migrer la base de données
@@ -43,7 +36,7 @@ CAROUSEL_DELAY=5000
 node ace migration:fresh
 ```
 
-1. Lancer le serveur
+6. Lancer le serveur
 ```sh
 npm run dev
 ```

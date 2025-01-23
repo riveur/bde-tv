@@ -26,7 +26,6 @@ export default await Env.create(new URL('../', import.meta.url), {
   SESSION_DRIVER: Env.schema.enum(['cookie', 'memory'] as const),
 
   OPENWEATHER_API_KEY: Env.schema.string.optional(),
-  OPENWEATHER_CITY: Env.schema.string.optional(),
 
   /*
   |----------------------------------------------------------
@@ -34,6 +33,4 @@ export default await Env.create(new URL('../', import.meta.url), {
   |----------------------------------------------------------
   */
   DRIVE_DISK: Env.schema.enum(['fs'] as const),
-
-  CAROUSEL_DELAY: Env.schema.number(),
 })

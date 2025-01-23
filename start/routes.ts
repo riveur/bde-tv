@@ -3,6 +3,7 @@ import transmit from '@adonisjs/transmit/services/main'
 
 import { middleware } from '#start/kernel'
 
+const SettingsController = () => import('#controllers/settings_controller')
 const AuthController = () => import('#controllers/auth_controller')
 const HomeController = () => import('#controllers/home_controller')
 const DashboardController = () => import('#controllers/dashboard_controller')
@@ -46,3 +47,5 @@ router
   })
   .prefix('/slides')
   .middleware(middleware.auth())
+
+router.put('/settings', [SettingsController]).middleware(middleware.auth())
