@@ -1,66 +1,23 @@
-import app from '@adonisjs/core/services/app'
 import router from '@adonisjs/core/services/router'
-
-import { db } from '#services/db'
-import { WeatherService } from '#services/weather_service'
-import env from '#start/env'
-import { middleware } from '#start/kernel'
 import transmit from '@adonisjs/transmit/services/main'
 
+import { middleware } from '#start/kernel'
+
+const AuthController = () => import('#controllers/auth_controller')
+const HomeController = () => import('#controllers/home_controller')
+const DashboardController = () => import('#controllers/dashboard_controller')
 const SlidesController = () => import('#controllers/slides_controller')
 const NewsController = () => import('#controllers/news_controller')
 const EventsController = () => import('#controllers/events_controller')
 
 transmit.registerRoutes()
 
-router.get('/', async ({ inertia }) => {
-  const news = () => db.news.query().orderBy('created_at', 'desc').limit(3)
-  const events = () =>
-    db.events
-      .query()
-      .withScopes((scopes) => scopes.incoming())
-      .orderBy('start_at', 'asc')
-      .limit(5)
-  const slides = () => db.slides.query().whereNotNull('order').orderBy('order', 'asc')
+router.get('/', [HomeController])
+router.get('/dashboard', [DashboardController]).middleware(middleware.auth())
 
-  const weatherService = await app.container.make(WeatherService)
-  const weather = await weatherService.getWeather(env.get('OPENWEATHER_CITY') || 'Paris')
-  const carouselDelay = env.get('CAROUSEL_DELAY')
-
-  return inertia.render('home/index', { news, events, slides, weather, carouselDelay })
-})
-
-router
-  .get('/dashboard', async ({ inertia }) => {
-    const news = () => db.news.all()
-    const events = () => db.events.all()
-    const slides = () => db.slides.query().orderBy('order', 'asc')
-
-    return inertia.render('dashboard/index', { news, events, slides })
-  })
-  .as('dashboard')
-  .middleware(middleware.auth())
-
-router.get('/login', ({ inertia }) => inertia.render('login')).middleware(middleware.guest())
-
-router
-  .post('/login', async ({ request, auth, response }) => {
-    const { username, password } = request.only(['username', 'password'])
-
-    const user = await db.users.verifyCredentials(username, password)
-
-    await auth.use('web').login(user)
-
-    return response.redirect().toRoute('dashboard')
-  })
-  .middleware(middleware.guest())
-
-router
-  .post('/logout', async ({ auth, response }) => {
-    await auth.use('web').logout()
-    return response.redirect('/')
-  })
-  .use(middleware.auth())
+router.get('/login', [AuthController, 'renderLogin']).middleware(middleware.guest())
+router.post('/login', [AuthController, 'login']).middleware(middleware.guest())
+router.post('/logout', [AuthController, 'logout']).middleware(middleware.auth())
 
 router
   .group(() => {
