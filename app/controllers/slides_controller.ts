@@ -1,6 +1,7 @@
 import { cuid } from '@adonisjs/core/helpers'
 import type { HttpContext } from '@adonisjs/core/http'
 import drive from '@adonisjs/drive/services/main'
+import transmit from '@adonisjs/transmit/services/main'
 import vine from '@vinejs/vine'
 
 import { db } from '#services/db'
@@ -35,6 +36,8 @@ export default class SlidesController {
       imageUrl: await drive.use().getUrl(key),
     })
 
+    transmit.broadcast('live/reload', ['slides'])
+
     return response.ok(slide)
   }
 
@@ -51,6 +54,8 @@ export default class SlidesController {
     }
 
     await slide.save()
+
+    transmit.broadcast('live/reload', ['slides'])
 
     return response.redirect().back()
   }
@@ -73,6 +78,8 @@ export default class SlidesController {
         await db.slides.query({ client: trx }).where('id', id).update({ order })
       }
     })
+
+    transmit.broadcast('live/reload', ['slides'])
 
     response.redirect().back()
   }

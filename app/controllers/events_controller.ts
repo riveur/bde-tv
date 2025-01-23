@@ -1,4 +1,5 @@
 import type { HttpContext } from '@adonisjs/core/http'
+import transmit from '@adonisjs/transmit/services/main'
 import vine from '@vinejs/vine'
 import { DateTime } from 'luxon'
 
@@ -34,6 +35,8 @@ export default class EventsController {
 
     await db.events.create(payload)
 
+    transmit.broadcast('live/reload', ['events'])
+
     return response.redirect().back()
   }
 
@@ -43,6 +46,8 @@ export default class EventsController {
 
     await event.merge(payload).save()
 
+    transmit.broadcast('live/reload', ['events'])
+
     return response.redirect().back()
   }
 
@@ -50,6 +55,8 @@ export default class EventsController {
     const event = await db.events.findOrFail(params.id)
 
     await event.delete()
+
+    transmit.broadcast('live/reload', ['events'])
 
     return response.redirect().back()
   }

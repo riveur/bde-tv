@@ -1,4 +1,5 @@
 import type { HttpContext } from '@adonisjs/core/http'
+import transmit from '@adonisjs/transmit/services/main'
 import vine from '@vinejs/vine'
 
 import { db } from '#services/db'
@@ -25,6 +26,8 @@ export default class NewsController {
 
     await db.news.create(payload)
 
+    transmit.broadcast('live/reload', ['news'])
+
     return response.redirect().back()
   }
 
@@ -34,6 +37,8 @@ export default class NewsController {
 
     await event.merge(payload).save()
 
+    transmit.broadcast('live/reload', ['news'])
+
     return response.redirect().back()
   }
 
@@ -41,6 +46,8 @@ export default class NewsController {
     const event = await db.news.findOrFail(params.id)
 
     await event.delete()
+
+    transmit.broadcast('live/reload', ['news'])
 
     return response.redirect().back()
   }

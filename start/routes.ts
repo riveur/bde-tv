@@ -5,19 +5,23 @@ import { db } from '#services/db'
 import { WeatherService } from '#services/weather_service'
 import env from '#start/env'
 import { middleware } from '#start/kernel'
+import transmit from '@adonisjs/transmit/services/main'
 
 const SlidesController = () => import('#controllers/slides_controller')
 const NewsController = () => import('#controllers/news_controller')
 const EventsController = () => import('#controllers/events_controller')
 
+transmit.registerRoutes()
+
 router.get('/', async ({ inertia }) => {
-  const news = await db.news.query().orderBy('created_at', 'desc').limit(3)
-  const events = await db.events
-    .query()
-    .withScopes((scopes) => scopes.incoming())
-    .orderBy('start_at', 'asc')
-    .limit(5)
-  const slides = await db.slides.query().whereNotNull('order').orderBy('order', 'asc')
+  const news = () => db.news.query().orderBy('created_at', 'desc').limit(3)
+  const events = () =>
+    db.events
+      .query()
+      .withScopes((scopes) => scopes.incoming())
+      .orderBy('start_at', 'asc')
+      .limit(5)
+  const slides = () => db.slides.query().whereNotNull('order').orderBy('order', 'asc')
 
   const weatherService = await app.container.make(WeatherService)
   const weather = await weatherService.getWeather(env.get('OPENWEATHER_CITY') || 'Paris')

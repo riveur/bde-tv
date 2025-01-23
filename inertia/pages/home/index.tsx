@@ -11,6 +11,7 @@ import { EventsTimeline } from './components/events_timeline'
 import { HomeHeader } from './components/home_header'
 import { NewCard } from './components/new_card'
 import { WeatherCard } from './components/weather_card'
+import { useLiveReload } from './hooks/use_live_reload'
 
 type HomePageProps = {
   news: New[]
@@ -25,6 +26,7 @@ export default function HomePage(props: HomePageProps) {
 
   // Refresh data every 30 minutes
   usePoll(30 * 60 * 1000)
+  useLiveReload()
 
   return (
     <>
