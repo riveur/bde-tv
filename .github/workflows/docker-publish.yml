@@ -6,7 +6,7 @@ on:
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: ${{ github.actor }}/bdetv:latest
+  IMAGE_NAME: zeluck/bdetv:latest
 
 jobs:
   publish:
