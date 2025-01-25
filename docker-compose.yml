@@ -1,11 +1,14 @@
 services:
-  website:
+  bde-tv:
     build: .
-    container_name: website
+    container_name: bde-tv
     ports:
       - '3000:3000'
     env_file:
       - .env
     environment:
       - NODE_ENV=production
-    restart: always 
+    volumes:
+      - /opt/apps/bde-tv/tmp:/app/tmp
+      - /opt/apps/bde-tv/storage/uploads:/app/storage/uploads
+    restart: always
