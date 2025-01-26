@@ -17,7 +17,7 @@ export function GoogleNewsSection() {
       <CardHeader>
         <CardTitle>Faits divers : {settings.weatherCity}</CardTitle>
       </CardHeader>
-      <div className="relative overflow-y-auto flex-grow min-h-96">
+      <div className="relative overflow-y-hidden hover:overflow-y-auto flex-grow min-h-96">
         <CardContent className="absolute inset-0 flex flex-col p-0">
           {articles.map((article, index) => (
             <Fragment key={index}>
@@ -39,7 +39,7 @@ export function GoogleNewsSectionSkeleton() {
       <CardHeader>
         <CardTitle>Faits divers : {settings.weatherCity}</CardTitle>
       </CardHeader>
-      <div className="relative overflow-y-auto flex-grow min-h-96">
+      <div className="relative overflow-y-hidden hover:overflow-y-auto flex-grow min-h-96">
         <CardContent className="absolute inset-0 flex flex-col p-0">
           {Array.from({ length: 5 }).map((_, index) => (
             <Fragment key={index}>
