@@ -23,3 +23,15 @@ export type Slide = {
   createdAt: string
   updatedAt: string
 }
+
+export type Article = {
+  title: string
+  link: string
+  image: string
+  source: string
+  datetime: string
+  time: string
+  articleType: string
+  content?: string
+  favicon?: string
+}
