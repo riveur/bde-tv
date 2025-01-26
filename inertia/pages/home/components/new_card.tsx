@@ -18,13 +18,13 @@ export function NewCard({ new: data }: NewCardProps) {
     <Card className={cn('rounded-lg relative pt-1 border-t-0')}>
       <div className={cn('absolute top-0 inset-x-0 h-1 rounded-t-lg', colors[data.level])} />
       <CardHeader className="p-2">
-        <CardTitle className="font-light text-sm">
+        <CardTitle className="font-light">
           {formatDate(data.createdAt, DateTime.DATE_SHORT)}
         </CardTitle>
       </CardHeader>
       <CardContent className="p-2 pt-0 space-y-2">
-        <CardTitle className="font-normal">{data.title}</CardTitle>
-        <CardDescription>{data.description}</CardDescription>
+        <CardTitle className="text-lg font-normal">{data.title}</CardTitle>
+        <CardDescription className="text-base">{data.description}</CardDescription>
       </CardContent>
     </Card>
   )

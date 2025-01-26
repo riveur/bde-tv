@@ -64,7 +64,7 @@ export function EventsTimeline({ events }: EventsTimelineProps) {
                 <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-4 h-4 rounded-full bg-primary/10 flex items-center justify-center z-10">
                   <div className="w-2 h-2 rounded-full bg-primary animate-pulse" />
                 </div>
-                <EventCard className="rounded-lg h-24" event={event} />
+                <EventCard className="rounded-lg h-32" event={event} />
               </div>
             ))}
           </>

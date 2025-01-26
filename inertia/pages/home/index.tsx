@@ -37,12 +37,12 @@ export default function HomePage(props: HomePageProps) {
         opts={{ loop: true }}
         plugins={[Autoplay({ delay: settings.carouselInterval * 1000 })]}
       >
-        <CarouselContent>
+        <CarouselContent className="items-center">
           <CarouselItem>
             <section className="min-h-dvh w-full flex flex-col gap-8 p-8">
               <HomeHeader />
-              <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8 flex-1">
-                <Card className="col-span-1 flex flex-col">
+              <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-8 gap-8 flex-1">
+                <Card className="col-span-1 xl:col-span-4 flex flex-col">
                   <CardHeader className="p-4">
                     <CardTitle>Dernières actualités</CardTitle>
                   </CardHeader>
@@ -64,7 +64,7 @@ export default function HomePage(props: HomePageProps) {
                     </CardContent>
                   </div>
                 </Card>
-                <Card className="col-span-1 xl:col-start-3 xl:col-end-4 flex flex-col">
+                <Card className="col-span-1 xl:col-span-2 xl:col-start-7 flex flex-col">
                   <CardHeader className="p-4">
                     <CardTitle>Météo</CardTitle>
                   </CardHeader>
@@ -85,11 +85,11 @@ export default function HomePage(props: HomePageProps) {
           </CarouselItem>
           {slides.map((slide) => (
             <CarouselItem key={slide.id}>
-              <Card className="h-dvh rounded-none overflow-hidden flex">
-                <CardContent className="flex items-center justify-center p-0 flex-1">
+              <div className="h-dvh overflow-hidden flex">
+                <div className="flex items-center justify-center flex-1">
                   <img src={slide.imageUrl} className="w-full h-auto object-center object-cover" />
-                </CardContent>
-              </Card>
+                </div>
+              </div>
             </CarouselItem>
           ))}
         </CarouselContent>
