@@ -46,7 +46,7 @@ export default function HomePage(props: HomePageProps) {
                   <CardHeader className="p-4">
                     <CardTitle>Dernières actualités</CardTitle>
                   </CardHeader>
-                  <div className="relative overflow-y-auto flex-grow min-h-96">
+                  <div className="relative overflow-y-hidden hover:overflow-y-auto flex-grow min-h-96">
                     <CardContent
                       className={cn(
                         'absolute inset-0 p-2 pt-0 flex flex-col gap-2',
