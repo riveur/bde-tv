@@ -1,4 +1,4 @@
-import { usePoll } from '@inertiajs/react'
+import { Deferred, usePoll } from '@inertiajs/react'
 import Autoplay from 'embla-carousel-autoplay'
 import { NewspaperIcon } from 'lucide-react'
 
@@ -10,6 +10,7 @@ import { useAppSettings } from '@/hooks/use_app_settings'
 import { cn } from '@/lib/utils'
 import type { Event, New, Slide } from '@/types'
 import { EventsTimeline } from './components/events_timeline'
+import { GoogleNewsSection, GoogleNewsSectionSkeleton } from './components/google_news_section'
 import { HomeHeader } from './components/home_header'
 import { NewCard } from './components/new_card'
 import { WeatherCard } from './components/weather_card'
@@ -37,16 +38,16 @@ export default function HomePage(props: HomePageProps) {
         opts={{ loop: true }}
         plugins={[Autoplay({ delay: settings.carouselInterval * 1000 })]}
       >
-        <CarouselContent>
+        <CarouselContent className="items-center">
           <CarouselItem>
             <section className="min-h-dvh w-full flex flex-col gap-8 p-8">
               <HomeHeader />
-              <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8 flex-1">
-                <Card className="col-span-1 flex flex-col">
+              <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-8 gap-8 flex-1">
+                <Card className="col-span-1 xl:col-span-4 flex flex-col">
                   <CardHeader className="p-4">
                     <CardTitle>Dernières actualités</CardTitle>
                   </CardHeader>
-                  <div className="relative overflow-y-auto flex-grow min-h-96">
+                  <div className="relative overflow-y-hidden hover:overflow-y-auto flex-grow min-h-96">
                     <CardContent
                       className={cn(
                         'absolute inset-0 p-2 pt-0 flex flex-col gap-2',
@@ -64,7 +65,7 @@ export default function HomePage(props: HomePageProps) {
                     </CardContent>
                   </div>
                 </Card>
-                <Card className="col-span-1 xl:col-start-3 xl:col-end-4 flex flex-col">
+                <Card className="col-span-1 xl:col-span-2 xl:col-start-7 flex flex-col">
                   <CardHeader className="p-4">
                     <CardTitle>Météo</CardTitle>
                   </CardHeader>
@@ -83,13 +84,20 @@ export default function HomePage(props: HomePageProps) {
               </Card>
             </section>
           </CarouselItem>
+          <CarouselItem>
+            <section className="min-h-dvh container mx-auto max-w-6xl flex p-8">
+              <Deferred data="googleNews" fallback={<GoogleNewsSectionSkeleton />}>
+                <GoogleNewsSection />
+              </Deferred>
+            </section>
+          </CarouselItem>
           {slides.map((slide) => (
             <CarouselItem key={slide.id}>
-              <Card className="h-dvh rounded-none overflow-hidden flex">
-                <CardContent className="flex items-center justify-center p-0 flex-1">
+              <div className="h-dvh overflow-hidden flex">
+                <div className="flex items-center justify-center flex-1">
                   <img src={slide.imageUrl} className="w-full h-auto object-center object-cover" />
-                </CardContent>
-              </Card>
+                </div>
+              </div>
             </CarouselItem>
           ))}
         </CarouselContent>

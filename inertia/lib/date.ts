@@ -35,6 +35,6 @@ export function formatDateHumanReadeble(...args: Parameters<typeof formatDate>) 
 export function getDuration(startAt: string, endAt: string) {
   const start = DateTime.fromISO(startAt)
   const end = DateTime.fromISO(endAt)
-  const days = Math.ceil(end.diff(start, 'days').days)
+  const days = end.diff(start, 'days').days + 1
   return days <= 1 ? `${days} jour` : `${days} jours`
 }
