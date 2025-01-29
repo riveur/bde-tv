@@ -12,10 +12,6 @@ export function GoogleNewsSection() {
   const articles = usePage().props.googleNews as Article[]
   const settings = useAppSettings()
 
-  if (!articles) {
-    return null
-  }
-
   return (
     <Card className="flex flex-col flex-1 overflow-hidden">
       <CardHeader>
