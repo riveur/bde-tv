@@ -5,14 +5,12 @@ FROM base AS deps
 WORKDIR /app
 ADD package.json package-lock.json ./
 RUN npm ci
-RUN npx puppeteer browsers install chrome
 
 # Production only deps stage
 FROM base AS production-deps
 WORKDIR /app
 ADD package.json package-lock.json ./
 RUN npm ci --omit=dev
-RUN npx puppeteer browsers install chrome
 
 # Build stage
 FROM base AS build
