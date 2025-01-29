@@ -1,4 +1,4 @@
-import { usePoll } from '@inertiajs/react'
+import { Deferred, usePoll } from '@inertiajs/react'
 import Autoplay from 'embla-carousel-autoplay'
 import { NewspaperIcon } from 'lucide-react'
 
@@ -10,6 +10,7 @@ import { useAppSettings } from '@/hooks/use_app_settings'
 import { cn } from '@/lib/utils'
 import type { Event, New, Slide } from '@/types'
 import { EventsTimeline } from './components/events_timeline'
+import { GoogleNewsSection, GoogleNewsSectionSkeleton } from './components/google_news_section'
 import { HomeHeader } from './components/home_header'
 import { NewCard } from './components/new_card'
 import { WeatherCard } from './components/weather_card'
@@ -46,7 +47,7 @@ export default function HomePage(props: HomePageProps) {
                   <CardHeader className="p-4">
                     <CardTitle>Dernières actualités</CardTitle>
                   </CardHeader>
-                  <div className="relative overflow-y-auto flex-grow min-h-96">
+                  <div className="relative overflow-y-hidden hover:overflow-y-auto flex-grow min-h-96">
                     <CardContent
                       className={cn(
                         'absolute inset-0 p-2 pt-0 flex flex-col gap-2',
@@ -81,6 +82,13 @@ export default function HomePage(props: HomePageProps) {
                   <EventsTimeline events={events} />
                 </CardContent>
               </Card>
+            </section>
+          </CarouselItem>
+          <CarouselItem>
+            <section className="min-h-dvh container mx-auto max-w-6xl flex p-8">
+              <Deferred data="googleNews" fallback={<GoogleNewsSectionSkeleton />}>
+                <GoogleNewsSection />
+              </Deferred>
             </section>
           </CarouselItem>
           {slides.map((slide) => (
