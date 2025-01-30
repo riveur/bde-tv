@@ -8,6 +8,7 @@ export const settingValidator = vine.compile(
     carouselInterval: vine.number(),
     weatherCity: vine.string(),
     weatherTtl: vine.string(),
+    googleNewsTopicToken: vine.string(),
   })
 )
 

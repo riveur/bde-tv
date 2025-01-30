@@ -25,6 +25,7 @@ const schema = z.object({
   carouselInterval: z.number().or(z.string()).pipe(z.coerce.number()),
   weatherCity: z.string().min(1),
   weatherTtl: z.string().min(1),
+  googleNewsTopicToken: z.string(),
 })
 
 export function SettingsTab() {
@@ -136,6 +137,24 @@ export function SettingsTab() {
                     <FormMessage />
                     <FormDescription>
                       Le format de la durée doit suivre un format de durée (ex: 30min, 1h, 2h)
+                    </FormDescription>
+                  </FormItem>
+                )
+              }}
+            />
+            <FormField
+              control={form.control}
+              name="googleNewsTopicToken"
+              render={({ field }) => {
+                return (
+                  <FormItem className="px-6">
+                    <FormLabel>Google News: Topic Token</FormLabel>
+                    <FormControl>
+                      <Input {...field} />
+                    </FormControl>
+                    <FormMessage />
+                    <FormDescription>
+                      Le token du sujet à afficher pour récupérer les actualités sur Google News
                     </FormDescription>
                   </FormItem>
                 )

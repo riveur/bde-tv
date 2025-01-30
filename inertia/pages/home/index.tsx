@@ -3,6 +3,7 @@ import Autoplay from 'embla-carousel-autoplay'
 import { NewspaperIcon } from 'lucide-react'
 
 import type { WeatherData } from '#services/weather_service'
+import type { Article } from '#validators/serpapi_validator'
 import { Head } from '@/components/head'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Carousel, CarouselContent, CarouselItem } from '@/components/ui/carousel'
@@ -10,6 +11,7 @@ import { useAppSettings } from '@/hooks/use_app_settings'
 import { cn } from '@/lib/utils'
 import type { Event, New, Slide } from '@/types'
 import { EventsTimeline } from './components/events_timeline'
+import { GoogleNewsSection } from './components/google_news_section'
 import { HomeHeader } from './components/home_header'
 import { NewCard } from './components/new_card'
 import { WeatherCard } from './components/weather_card'
@@ -20,10 +22,11 @@ type HomePageProps = {
   events: Event[]
   slides: Slide[]
   weather: WeatherData | null
+  googleNews: { title: string; articles: Article[] } | null
 }
 
 export default function HomePage(props: HomePageProps) {
-  const { news, events, slides, weather } = props
+  const { news, events, slides, weather, googleNews } = props
 
   const settings = useAppSettings()
 
@@ -83,6 +86,13 @@ export default function HomePage(props: HomePageProps) {
               </Card>
             </section>
           </CarouselItem>
+          {googleNews && (
+            <CarouselItem>
+              <section className="min-h-dvh container mx-auto max-w-6xl flex p-8">
+                <GoogleNewsSection result={googleNews} />
+              </section>
+            </CarouselItem>
+          )}
           {slides.map((slide) => (
             <CarouselItem key={slide.id}>
               <div className="h-dvh overflow-hidden flex">
