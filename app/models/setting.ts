@@ -18,4 +18,7 @@ export default class Setting extends BaseModel {
 
   @column()
   declare weatherTtl: string
+
+  @column()
+  declare googleNewsTopicToken: string
 }

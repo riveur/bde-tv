@@ -7,6 +7,7 @@ const DEFAULT_SETTINGS = {
   carouselInterval: 5,
   weatherCity: 'Paris',
   weatherTtl: '30min',
+  googleNewsTopicToken: '',
 }
 
 export class SettingRepository {
