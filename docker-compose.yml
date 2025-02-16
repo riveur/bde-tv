@@ -3,7 +3,7 @@ services:
     container_name: bde-tv
     image: ghcr.io/zeluck-github/bdetv:latest
     ports:
-      - '3000:3000'
+      - '3500:3500'
     env_file:
       - .env
     environment:
