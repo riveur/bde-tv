@@ -15,7 +15,6 @@ const sparklesTimes = [
   '15:35',
   '16:30',
   '17:25',
-  '16:50',
 ]
 
 export function DateSparkles() {
