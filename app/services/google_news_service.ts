@@ -1,3 +1,5 @@
+import logger from '@adonisjs/core/services/logger'
+import { errors as vineErrors } from '@vinejs/vine'
 import ky from 'ky'
 import { DateTime } from 'luxon'
 
@@ -18,6 +20,12 @@ export class GoogleNewsService {
 
       return articles
     } catch (error: unknown) {
+      if (error instanceof vineErrors.E_VALIDATION_ERROR) {
+        logger.error({ err: error }, 'Failed to validate Google News articles')
+      } else {
+        logger.error({ err: error }, 'Failed to fetch Google News articles')
+      }
+
       return null
     }
   }
@@ -42,10 +50,12 @@ export class GoogleNewsService {
 
     return {
       title: articles.title,
-      articles: articles.news_results.map((article) => ({
-        ...article,
-        date: this.parseDateToISO(article.date),
-      })),
+      articles: articles.news_results
+        .filter((article) => 'title' in article)
+        .map((article) => ({
+          ...article,
+          date: this.parseDateToISO(article.date),
+        })),
     }
   }
 
